@@ -53,11 +53,12 @@ const A = styled.a`
     }
   }
   hr {
-    margin: 0 10px 0 0;
+    margin: 0;
+    margin-left: 10px;
     border-left: 2px solid #333;
     height: 32px;
     @media only screen and (min-width: 425px) {
-      margin: 0 20px 0 0;
+      margin-left: 20px;
     }
   }
 `
