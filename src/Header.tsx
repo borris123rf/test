@@ -52,6 +52,8 @@ const Header = styled.header<SystemT>`
 
 interface Props {
     env?: 'development' | 'production'
+    client?: string
+    redirect?: string
     tools?: 'fonts' | 'colors' | 'graphicmaker' | 'calendar' | 'speechmaker'
 }
 
@@ -72,12 +74,12 @@ const Burger: React.FC<{ open: boolean; setOpen: React.Dispatch<React.SetStateAc
     </Box>
 }
 
-export default function ({ }: Props) {
+export default function ({ env, client = '82d6519479be58c2141e074ebc079acc', redirect = 'https://designs.ai/fonts' }: Props) {
     const [open, setOpen] = React.useState(false);
-    const client = '82d6519479be58c2141e074ebc079acc'
-    const redirect = 'https://designs.ai/fonts'
-    const origin = 'https://designs.ai'
+
+    const origin = env === 'production' ? 'https://designs.ai' : 'https://dev.designs.ai'
     const loginUrl = '/user/login'
+    const logoutUrl = '/user/logout'
 
     return <React.Fragment>
         <GlobalStyle isScrollable={!open}></GlobalStyle>
@@ -107,13 +109,13 @@ export default function ({ }: Props) {
                             location.href = `${origin}${loginUrl}?client=${client}&redirect=${redirect}`
                         }}>
                             Login
-                    </button>
+                        </button>
                     </Box>
                     <Box>
 
                     </Box>
                     <Box>
-                        <a>Logout</a>
+                        <a href={`${origin}${logoutUrl}?client=${client}&redirect=${redirect}`}>Logout</a>
                     </Box>
                     <Box display='flex' >
                         {socialMedia.map((Media, i) => (
