@@ -7,10 +7,6 @@ const GlobalStyle = createGlobalStyle<{ isScrollable: boolean }>`
   body {
     overflow: ${props => (props.isScrollable ? 'auto' : 'hidden')};
   }
-  *, ::after, ::before {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 `
 const Box = styled.div<SystemT>`
   ${space}
@@ -34,31 +30,33 @@ const Bar = styled(Box) <{ transparent?: boolean; transform?: string; open?: boo
     `}
 `
 
+const SubLogo = styled.img`
+  width: auto;
+  height: auto;
+  max-height: 18px;
+  max-width: 100%;
+  @media only screen and (min-width: 425px) {
+    max-height: 24px;
+  }
+`
+
 const A = styled.a`
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 20px;
   position: relative;
   display: flex;
   align-items: center;
   @media only screen and (min-width: 425px) {
-    margin-left: 20px;
+    margin-left: 40px;
   }
-  img {
-    width: auto;
-    height: auto;
-    max-height: 18px;
-    max-width: 100%;
-    @media only screen and (min-width: 425px) {
-      max-height: 24px;
-    }
-  }
-  hr {
-    margin: 0;
-    margin-left: 10px;
-    border-left: 2px solid #333;
+  &:before {
+    content: '';
+    width: 2px;
+    background-color: #333;
     height: 32px;
+    position: absolute;
+    left: -10px;
     @media only screen and (min-width: 425px) {
-      margin-left: 20px;
+      left: -20px;
     }
   }
 `
@@ -113,8 +111,7 @@ const Logo = ({ apiUrl, origin, tools }: { apiUrl: string, origin: string, tools
         <Img src={`${apiUrl}/utilities/images/logo-mobile.png`} width={40} display={['block', 'block', 'none']} />
       </a>
       <A href={`${origin}/${tools}`}>
-        <hr />
-        <Img src={`${apiUrl}/utilities/images/${tools}.png`} />
+        <SubLogo src={`${apiUrl}/utilities/images/${tools}.png`} />
       </A>
     </Box>
   )
